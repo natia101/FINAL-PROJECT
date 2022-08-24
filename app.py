@@ -1,14 +1,11 @@
 from fcntl import F_SEAL_SEAL
-from pickle import FALSE
+
 import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.express as px 
 import plotly.graph_objects as go 
 import re
-
-from mlxtend.frequent_patterns import apriori
-from mlxtend.frequent_patterns import association_rules
 
 st.set_page_config(
     page_title="Sistema de recomendación - Proyecto Final",
@@ -38,15 +35,15 @@ def my_encode_units(x):
 
 with header:
     st.title("Sistema de recomendación")
-    st.sidebar.header('Sistema de recomendación')
+    st.sidebar.header('Sistema de recomendación  Analisis de la Cesta de compra para el comercio minorista  Objetivo: las tecnicas de ML implementadas buscan brindar informacion a los comerciantes en cuanto a las asociaciones observadas en las ventas de productos, asi como en las reglas que operan para la rotacion de los mismos. Alcance: El analsis parte de una limpieza y adecuacion de los datos, posteriormente se crea y entrena el modelo para finalmente deployar a traves de Flask en una web que permita interactuar desde el lado del usuario de forma mas rapida y simple con el modelo Integrantes: Natia Lombardo Andrea Juarez Maria Gomez')
     #st.markdown('El algoritmo a priori es uno de los más utilizados en este tema y permite encontrar de forma eficiente conjuntos de ítems frecuentes, los cuales sirven de base para generar reglas de asociación entre los ítems.')
 
 with features:
-    st.header('Reglas de Asociación')
-    st.markdown('Conceptos: ')
-    st.markdown('* Soporte: El soporte del ítem es el número de transacciones que contienen X dividido entre el total de transacciones.')
-    st.markdown('* Confianza: La confianza de una regla “Si X entonces Y” se define acorde a la ecuación')
-    st.markdown('Confianza(X=>Y)=Soporte(unión(X,Y)) /soporte(X)')
+    st.header('Indicadores usados en las Reglas de Asociación')
+    #st.markdown('')
+    st.markdown('* Soporte: Nos indica cuantos productos son comprados del producto recomendado cada 100 vendidos del primer producto')
+    st.markdown('* Confianza: Nos indica con que probabilidad puede ser comprado el segundo producto una vez comprado el primero')
+    #st.markdown('Confianza(X=>Y)=Soporte(unión(X,Y)) /soporte(X)')
 
 with dataset:
     dataset_url = "data/raw/reglas_de_asociacion.csv"
@@ -74,7 +71,8 @@ with interactive:
     
     st.title('Productos mas vendidos')
     df = get_data_items()
-    #st.table(df)
+    for i in range(len(df)):
+        df['itemsets'][i] = re.sub(r'\W+',' ',re.search('({(.*)})', str(df.itemsets[i]))[0]).strip()
     
     df.sort_values(['support'],ascending=False,inplace=True)
 
@@ -88,4 +86,4 @@ with interactive:
     
 
 with footer:
-    st.write('Fin')
+    st.write('Copyright')
