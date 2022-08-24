@@ -1,8 +1,12 @@
+from fcntl import F_SEAL_SEAL
+from pickle import FALSE
 import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.express as px 
 import plotly.graph_objects as go 
+import re
+
 from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
@@ -15,11 +19,11 @@ st.set_page_config(
 header = st.container()
 dataset = st.container()
 features = st.container()
-model = st.container()
+#model = st.container()
 interactive = st.container()
 footer = st.container()
 
-@st.cache
+#@st.cache
 def get_data() -> pd.DataFrame:
     return pd.read_csv(dataset_url)
 
@@ -48,68 +52,40 @@ with dataset:
     dataset_url = "data/raw/reglas_de_asociacion.csv"
     dataset_url_items = "data/raw/Dataset_itemsset.csv"
 
-with model:
-    data=pd.read_csv('data/raw/Assignment-1_Data.csv',sep=';')
-    st.title('El modelo')
-    # Limpiamos los datos
-
-    data['Itemname'] = data['Itemname'].str.strip() # aca estamos remobiendo los espacios
-    data.dropna(axis=0, subset=['BillNo'], inplace=True) # elimino los na en las boletas
-    data.dropna(axis=0, subset=['CustomerID'], inplace=True) # elimino los na en los id de los clientes 
-    data['BillNo'] = data['BillNo']. astype('str') # convertimos el numero de boleta en string
-    data = data[~data['BillNo'].str.contains('C')] # removemos las posibles transacciones realizadas a credito
-    #data.head()
-
-    # Creamos el segundo dataset solo con los datos de Alemania
-    from itertools import groupby
-    dataset_germany = (data[data['Country']== "Germany"].groupby(['BillNo', 'Itemname'])['Quantity'].sum().unstack().reset_index().fillna(0).set_index('BillNo'))
-
-    #Vamos a definir una funcion que convertira todos los cero o menores que cero a cero y si son mayores a 1 en 1, 
-    # esto lo hacemos porque es lo que el algoritmo usa o espera como entrada
-
-    dataset_germany_set = dataset_germany.applymap(my_encode_units)
-    dataset_germany_set.drop('POSTAGE', inplace=True, axis=1)
-
-    df = dataset_germany_set.copy()
-
-    #Generamos la frecuencia de los items
-    df_itemsset = apriori(df, min_support=0.07, use_colnames=True)
-
-    # Creamos las reglas de asociacion
-    my_rules = association_rules(df_itemsset, metric='lift', min_threshold=1)
-
-    # Viasualizamos el top de las 100 reglas o normas de asociacion
-
-    #my_rules.head(100)
-
-    #my_rules[(my_rules['lift'] >= 3) & (my_rules['confidence'] >= 0.3)]   
-
-
 with interactive:
-    st.title('La reglas')
+    st.title('Lista de productos recomendados')
     df = get_data()
-    #st.table(df)
+
+    df['primer_producto']=np.nan
+    df['producto_recomendado']=np.nan
+
+    for i in range(len(df)):
+        df['primer_producto'][i] = re.sub(r'\W+',' ',re.search('({(.*)})', str(df.antecedents[i]))[0]).strip()
+        df['producto_recomendado'][i] = re.sub(r'\W+',' ',re.search('({(.*)})', str(df.consequents[i]))[0]).strip()
+
     fig = go.Figure(data = [go.Table(
-        header= dict(values=list(df[['antecedents','consequents','support','confidence','lift','leverage','conviction']].columns),
+        header= dict(values=['Si compra','Se recomienda','% Soporte','% Confianza'],
         align = 'center'),
-        cells = dict(values=[df.antecedents,df.consequents,round(df.support,2),round(df.confidence,2),round(df.lift,2),round(df.leverage,2),round(df.conviction,2)]))
+        cells = dict(values=[df.primer_producto,df.producto_recomendado,round(df.support*100,2),round(df.confidence*100,2)]))
     ])
     fig.show()
     st.write(fig)
 
-    st.title('Los items')
+    
+    st.title('Productos mas vendidos')
     df = get_data_items()
     #st.table(df)
+    
+    df.sort_values(['support'],ascending=False,inplace=True)
+
     fig = go.Figure(data = [go.Table(
-        header= dict(values=list(df[['support','itemsets']].columns),
+        header= dict(values= ['itemsets'],
         align = 'center'),
-        cells = dict(values=[round(df.support,2),df.itemsets]))
+        cells = dict(values=[df.itemsets]))
     ])
     fig.show()
     st.write(fig)
-
-
-
+    
 
 with footer:
     st.write('Fin')
