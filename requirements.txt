@@ -3,6 +3,6 @@ re
 pandas==1.4.2
 numpy>=1.18.5
 matplotlib>=3.2.2
-plotly 5.10.0
-streamlit 1.12.0
+plotly  
+streamlit
 
