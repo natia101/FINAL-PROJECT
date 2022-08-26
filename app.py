@@ -8,8 +8,8 @@ import plotly.graph_objects as go
 import re
 
 st.set_page_config(
-    page_title="Sistema de recomendación - Proyecto Final",
-    page_icon="✅",
+    page_title="Sistema de recomendación - Proyecto Final 🛒",
+    page_icon="🛒",
     layout="wide",
 )
 
@@ -34,9 +34,21 @@ def my_encode_units(x):
         return 1    
 
 with header:
-    st.title("Sistema de recomendación")
-    st.sidebar.header('Sistema de recomendación  Analisis de la Cesta de compra para el comercio minorista  Objetivo: las tecnicas de ML implementadas buscan brindar informacion a los comerciantes en cuanto a las asociaciones observadas en las ventas de productos, asi como en las reglas que operan para la rotacion de los mismos. Alcance: El analsis parte de una limpieza y adecuacion de los datos, posteriormente se crea y entrena el modelo para finalmente deployar a traves de Flask en una web que permita interactuar desde el lado del usuario de forma mas rapida y simple con el modelo Integrantes: Natia Lombardo Andrea Juarez Maria Gomez')
+    st.title("Sistema de recomendación 🛒")
+    #st.sidebar.header('Sistema de recomendación')
     #st.markdown('El algoritmo a priori es uno de los más utilizados en este tema y permite encontrar de forma eficiente conjuntos de ítems frecuentes, los cuales sirven de base para generar reglas de asociación entre los ítems.')
+
+with st.sidebar:
+    st.markdown('Análisis de la Cesta \n de compra para el comercio minorista')
+    st.markdown('<hr><b>Objetivo : </b>',unsafe_allow_html=True)
+    st.markdown('<p style="text-align:justify">Las técnicas de ML implementadas buscan brindar información a los comerciantes en cuanto a las asociaciones observadas en las ventas de productos, así como en las reglas que operan para la rotación de los mismos. </p>',unsafe_allow_html=True)
+    st.markdown('<hr><b>Alcance : </b>',unsafe_allow_html=True)
+    st.markdown('<ul style="text-align:justify"><li>Análisis de los datos : limpieza y adecuación de los datos (EDA)</li> <li>Se aplica el modelo APRIORI al dataset donde se verifican los valores del Soporte y la Confianza </li> <li>Se realiza Dashboard para desplegar el resultado del Análisis usando la herramienta Streamlit </li> <li>Se realiza el despliegue usando las herramienta Git Hub y Heroku</li></ul>',unsafe_allow_html=True)
+    st.markdown('<img src="https://streamlit.io/favicon32.ico" alt="Streamlit"> | <img src="https://www.herokucdn.com/favicons/favicon.ico" alt=" Heroku" width="32" height="32"> | <img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub" width="32" height="32">', unsafe_allow_html=True)
+    st.markdown('<hr>',unsafe_allow_html=True)
+    st.caption('**Integrantes:**')
+    st.caption('Natia Lombardo | Andrea Juárez | María Gómez')
+    st.markdown('<hr>',unsafe_allow_html=True)
 
 with features:
     st.header('Indicadores usados en las Reglas de Asociación')
@@ -83,7 +95,5 @@ with interactive:
     ])
     fig.show()
     st.write(fig)
-    
 
-with footer:
-    st.write('Copyright')
+    
