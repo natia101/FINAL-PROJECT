@@ -43,7 +43,7 @@ with st.sidebar:
     st.markdown('<hr><b>Objetivo : </b>',unsafe_allow_html=True)
     st.markdown('<p style="text-align:justify">Las técnicas de ML implementadas buscan brindar información a los comerciantes en cuanto a las asociaciones observadas en las ventas de productos, así como en las reglas que operan para la rotación de los mismos. </p>',unsafe_allow_html=True)
     st.markdown('<hr><b>Alcance : </b>',unsafe_allow_html=True)
-    st.markdown('<ul style="text-align:justify"><li>Análisis de los datos : limpieza y adecuación de los datos (EDA)</li> <li>Se aplica el modelo APRIORI al dataset donde se verifican los valores del Soporte y la Confianza </li> <li>Se realiza Dashboard para desplegar el resultado del Análisis usando la herramienta Streamlit </li> <li>Se realiza el despliegue usando las herramienta Git Hub y Heroku</li></ul>',unsafe_allow_html=True)
+    st.markdown('<ul style="text-align:justify"><li>Análisis de los datos : limpieza y adecuación de los datos (EDA)</li> <li>Se aplica el modelo APRIORI al dataset donde se verifican los valores del Soporte y la Confianza </li> <li>Se realiza Dashboard para desplegar el resultado del Análisis usando la herramienta Streamlit </li> <li>Se realiza el despliegue usando las herramienta GitHub y Heroku</li></ul>',unsafe_allow_html=True)
     st.markdown('<img src="https://streamlit.io/favicon32.ico" alt="Streamlit"> | <img src="https://www.herokucdn.com/favicons/favicon.ico" alt=" Heroku" width="32" height="32"> | <img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub" width="32" height="32">', unsafe_allow_html=True)
     st.markdown('<hr>',unsafe_allow_html=True)
     st.caption('**Integrantes:**')
