@@ -22,7 +22,6 @@ Natia Lombardo
 El repositorio puede encontrarlo en el siguiente link:
 
 Andrea Juárez https://github.com/andreaj-it/FINAL-PROJECT
-Maria Gómez 
-Natia Lombardo
+Maria Gómez  https://github.com/madgcar/FINAL-PROJECT
 
 El sistema de recomendaciones puede encontrarlo en el siguiente link:  https://mle-final-proyect.herokuapp.com/
