@@ -13,12 +13,16 @@ Tipo de Aprendizaje: Supervisado
 
 Integrantes:
 
+Andrea Juárez
+Maria Gómez
 Natia Lombardo
-Andrea Juarez
-Maria Gomez
 
 *Este Proyecto forma parte de los requerimientos para obtener el certificado de Machine Learning Engineer* en el marco del BOOTCAMP dictado por 4Geek Academy en Uruguay, asupiciado por la Universidad Tecnologica del Centro (UTEC) y el Banco Interamericano de Desarrollo.
 
-El repositorio puede encontrarlo en el siguiente link: https://github.com/andreaj-it/FINAL-PROJECT
+El repositorio puede encontrarlo en el siguiente link:
+
+Andrea Juárez https://github.com/andreaj-it/FINAL-PROJECT
+Maria Gómez 
+Natia Lombardo
 
 El sistema de recomendaciones puede encontrarlo en el siguiente link:  https://mle-final-proyect.herokuapp.com/

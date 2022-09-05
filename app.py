@@ -6,6 +6,7 @@ import pandas as pd
 import plotly.express as px 
 import plotly.graph_objects as go 
 import re
+import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="Sistema de recomendación - Proyecto Final 🛒",
@@ -40,8 +41,10 @@ with header:
 
 with st.sidebar:
     st.markdown('Análisis de la Cesta \n de compra para el comercio minorista')
+    st.markdown('Juguetería en Alemania')
     st.markdown('<hr><b>Objetivo : </b>',unsafe_allow_html=True)
     st.markdown('<p style="text-align:justify">Las técnicas de ML implementadas buscan brindar información a los comerciantes en cuanto a las asociaciones observadas en las ventas de productos, así como en las reglas que operan para la rotación de los mismos. </p>',unsafe_allow_html=True)
+    st.markdown('<p style="text-align:justify">Este reporte brinda información para la generación de Promociones y Recomendaciones sobre productos de mayor venta según la data analizada. </p>',unsafe_allow_html=True)
     st.markdown('<hr><b>Alcance : </b>',unsafe_allow_html=True)
     st.markdown('<ul style="text-align:justify"><li>Análisis de los datos : limpieza y adecuación de los datos (EDA)</li> <li>Se aplica el modelo APRIORI al dataset donde se verifican los valores del Soporte y la Confianza </li> <li>Se realiza Dashboard para desplegar el resultado del Análisis usando la herramienta Streamlit </li> <li>Se realiza el despliegue usando las herramienta GitHub y Heroku</li></ul>',unsafe_allow_html=True)
     st.markdown('<img src="https://streamlit.io/favicon32.ico" alt="Streamlit"> | <img src="https://www.herokucdn.com/favicons/favicon.ico" alt=" Heroku" width="32" height="32"> | <img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub" width="32" height="32">', unsafe_allow_html=True)
@@ -85,6 +88,7 @@ with interactive:
     df = get_data_items()
     for i in range(len(df)):
         df['itemsets'][i] = re.sub(r'\W+',' ',re.search('({(.*)})', str(df.itemsets[i]))[0]).strip()
+        df['support'][i] = round(df.support[i]*100,2)
     
     df.sort_values(['support'],ascending=False,inplace=True)
 
@@ -96,4 +100,12 @@ with interactive:
     fig.show()
     st.write(fig)
 
+    st.write('Top 10 de productos mas vendidos')
     
+    st.bar_chart(data=df[:10],x='itemsets',y='support')
+
+    #arr = np.random.normal(1, 1, size=100)
+    #fig, ax = plt.subplots()
+    #ax.hist(arr, bins=20)
+
+    #st.pyplot(fig)
