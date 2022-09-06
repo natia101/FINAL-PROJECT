@@ -25,4 +25,6 @@ Andrea Juárez https://github.com/andreaj-it/FINAL-PROJECT
 
 Maria Gómez  https://github.com/madgcar/FINAL-PROJECT
 
+Natia Lombardo https://github.com/natia101/FINAL-PROJECT
+
 El sistema de recomendaciones puede encontrarlo en el siguiente link:  https://mle-final-proyect.herokuapp.com/
